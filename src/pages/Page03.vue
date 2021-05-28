@@ -1,5 +1,5 @@
 <template >
-    <q-page>
+    <q-page >
 
  
     <q-img class="page3Image"
@@ -13,11 +13,12 @@
 
 
        <div class="btnSetPage4">
-         <q-btn  class="BtnsPage4PlayAgain" style="margin-left:6px; "  to="/page02">
+         <q-btn  class="BtnsPage4PlayAgain" style="margin-left:6px; " @click="stopMusic">
        <img src="~assets/Butt-03.png" class="BtnsImgsPage4PlayAgain" > 
        </q-btn>
+     
 
-        
+
         <q-btn  @click="confirm = true" class="BtnsPage4Exit"  >
        <img src="~assets/Butt-02.png" class="BtnsImgsPage4Exit"> 
       </q-btn>
@@ -38,26 +39,26 @@
     </q-dialog>
     
      </q-img>
-
-
- 
-    
-    
-
+  <audio id="player" src="../assets/sounds/mind_reader_1.mp3"></audio>
     </q-page>
 </template>
 <script>
+import { LocalStorage } from 'quasar';
 export default{
 
     data(){
       return{
+      
+        mute: true,
      confirm: false,
       icon:null,
       
       }
     },   
     created(){
-      var image = JSON.parse(localStorage.getItem('value')) 
+      
+
+      var image = JSON.parse(localStorage.getItem('value')) ;
       var img = image.icon
       this.icon = img
        
@@ -74,14 +75,23 @@ document.addEventListener("deviceready", function(){
 }, false);
    
     },
+    mounted(){
+      document.getElementById('player').play();
+    },
 
     methods:{
       closeApp () {
       navigator.app.exitApp();
-     
-    }
-    }
-   
+    },
+
+    stopMusic(){
+      document.getElementById('player').pause();
+       this.$router.push("/page02");
+    },
+
+
+ }
+      
 }
     
 </script>

@@ -5,19 +5,15 @@
 
 
 
-    
- 
-      
-       
-
-
     <img src="~assets/MG-02.png" alt="" class="howToPlay" >
     <img src="~assets/How to play.png" alt="" class="guiImg" >
         <div class="abcd">
 
-          <q-btn to="/page03" class="controllBtnsPlay"  @click.prevent="playSound('http://soundbible.com/mp3/Air Plane Ding-SoundBible.com-496729130.mp3')">
+      
+        <q-btn class="controllBtnsPlay" @click="soundStop">
           <img src="~assets/playnow.png" class="controllBtnsImgs" />
-        </q-btn>
+      </q-btn>
+
 
       <q-btn  class="controllBtnsQuit"  @click="confirm = true" >
           <img src="~assets/Butt-02.png" class="controllBtnsImgs" />
@@ -43,7 +39,7 @@
     </q-dialog>
        
    </q-img>
-
+ <audio id="play" src="../assets/sounds/mind_reader_2.mp3"></audio>
 </div>
 </template>
 
@@ -58,12 +54,12 @@ import icon07 from "../assets/icons/icons-07.png";
 import icon08 from "../assets/icons/icons-08.png";
 import icon09 from "../assets/icons/icons-09.png";
 import icon10 from "../assets/icons/icons-10.png";
+import $ from 'jquery'
 import { LocalStorage } from 'quasar';
-
 export default {
   data() {
     return {
-        confirm: false,
+      confirm: false,
       test:icon09,
       iconF: [
         { icon: icon01 },{ icon: icon02 },{ icon: icon03 },{ icon: icon04 },{ icon: icon05 },{ icon: icon06 },
@@ -77,9 +73,12 @@ export default {
         { icon: icon09 },{ icon: icon10 }
         
       ],
+
+     
     };
   },
   methods: {
+    
     renderIcons() {
       var newArray = this.iconF;
       const shuffleArray = newArray => {
@@ -98,32 +97,38 @@ export default {
       newArray[36] = randomIcon,  newArray[45] = randomIcon
       localStorage.setItem('value', JSON.stringify( newArray[9]))
     }  ,
-     playSound (sound) {
-      if(sound) {
-        var audio = new Audio(sound);
-        audio.play();
-      }
-    },
+   
     closeApp () {
       navigator.app.exitApp();
      
-    }
-  },
-  created() {
+    },
+
+      soundStop(){
+        document.getElementById('play').pause();
+              this.$router.push("/page03");
+     
+    },
+     
+       },    
+      mounted(){
+      document.getElementById('play').play();
+    },
+
+  created() { 
     this.renderIcons();
     document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
     StatusBar.hide()
     StatusBar.overlaysWebView(false);
 
-    // window.navigationbar.hide();
 
 }
 document.addEventListener("deviceready", function(){
     var autoHideNavigationBar = true;
     window.navigationbar.setUp(autoHideNavigationBar);      
 }, false);
-   }
+   },
+
  }
 
 </script>

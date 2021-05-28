@@ -23,24 +23,7 @@
         alt="">
       </q-btn>
     
-   
-     
-      <!-- <q-btn class="Page01CloseButton"   @click="confirm = true" >
-         <img src="~assets/page 02 - btnClose.png" class="Page01CloseButtonImgs"> 
-      </q-btn>
 
-     <q-dialog v-model="confirm" persistent >
-      <q-card >
-        <q-card-section class="row items-center">
-          <span class="q-ml-sm" style="font-weight:600"> Are you sure you want to quit..?</span>
-        </q-card-section>
-
-        <q-card-actions align="right">
-          <q-btn flat label="Cancel" color="primary" v-close-popup />
-          <q-btn flat label="Yes" color="red" @click="closeApp" />
-        </q-card-actions>
-      </q-card>
-    </q-dialog> -->
 
 
     
@@ -50,7 +33,7 @@
 </template>
 
 <script>
-
+import { LocalStorage } from 'quasar';
 export default {
 data(){
   return{
@@ -62,9 +45,15 @@ methods:{
  closeApp () {
       navigator.app.exitApp();
      
-    }
+    },
 
-   },
+
+
+       
+   
+    },
+
+
    created(){
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
